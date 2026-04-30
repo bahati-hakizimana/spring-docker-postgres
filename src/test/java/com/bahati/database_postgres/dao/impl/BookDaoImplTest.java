@@ -1,8 +1,5 @@
-package com.bahati.database_postgres.dao;
+package com.bahati.database_postgres.dao.impl;
 
-import com.bahati.database_postgres.dao.impl.AuthorDaoImpl;
-import com.bahati.database_postgres.dao.impl.BookDaoImpl;
-import com.bahati.database_postgres.domain.Author;
 import com.bahati.database_postgres.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,25 +13,21 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class BookDaoImplTest {
-
     @Mock
-    private JdbcTemplate jdbcTemplate;
+    JdbcTemplate jdbcTemplate;
 
     @InjectMocks
     private BookDaoImpl underTest;
-
     @Test
-
-  public void testThatCreateBookGenerateCorrectSql () {
+    public void testThatCreateGenerateCorrectSql () {
         Book book = Book.builder()
-                .isbn("bkt5")
-                .title("Main conf")
-                .authorId(1l)
+                .isbn("khnb67")
+                .name("My book")
+                .authorId(1L)
                 .build();
         underTest.create(book);
-        verify(jdbcTemplate).update(
-                eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
-                eq("bkt5"), eq("Main conf"), eq(1l)
+        verify(jdbcTemplate).update(eq("INSERT INTO books (isbn, name, authorId) VALUES (?, ?, ?)"),
+                eq("khnb67"), eq("My book"), eq(1L)
         );
     }
 }
